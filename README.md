@@ -1,6 +1,10 @@
 # ![BYU logo](https://www.hscripts.com/freeimages/logos/university-logos/byu/byu-logo-clipart-128.gif) github-action-slack
 A GitHub Action for sending Slack notifications
 
+Sends messages that look like:
+![Message on Push](push.png)
+![Message on Pull Request](pr.png)
+
 ## Setup
 Your Slack workplace will need a <img src="https://github.com/byu-oit/github-action-slack/blob/master/cancel.png" width="16" height="16"> (`:cancel:`) emoji. We've provided one in this repo.
 
