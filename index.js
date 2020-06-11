@@ -93,7 +93,7 @@ async function run () {
           ref,
           head_commit: {
             message: headCommitMessage
-          },
+          } = {},
           repository: {
             full_name: repoName
           },
