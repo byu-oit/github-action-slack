@@ -1,0 +1,16 @@
+name: 'github-action-slack'
+description: 'A GitHub Action for sending Slack notifications'
+inputs:
+  status:
+    description: 'The workflow status'
+    # One of: success, failure, neutral, cancelled, skipped, timed_out, or action_required
+    required: true
+  channel:
+    description: 'The Slack channel ID'
+    required: true
+  webhook-url:
+    description: 'The Slack webhook URL'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
