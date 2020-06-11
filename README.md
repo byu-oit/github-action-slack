@@ -29,7 +29,8 @@ jobs:
         if: always()
         with:
           status: ${{ job.status }}
-          channel: C0AGQEZMF # slack-bot-testing
+          # You need the quotes (''), otherwise it gets interpreted as a comment
+          channel: '#slack-bot-testing'
           webhook-url: ${{ secrets.slack_webhook_url }}
 ```
 

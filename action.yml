@@ -6,7 +6,9 @@ inputs:
     # One of: success, failure, neutral, cancelled, skipped, timed_out, or action_required
     required: true
   channel:
-    description: 'The Slack channel ID'
+    description: 'The Slack channel you wish to send to'
+    # One of: '#some-channel', '@username', or 'C0AGQEZMF' (a channel ID)
+    # For '#some-channel', you need the quotes to prevent yml from interpreting it as a comment
     required: true
   webhook-url:
     description: 'The Slack webhook URL'
