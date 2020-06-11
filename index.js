@@ -91,11 +91,15 @@ async function run () {
         payload: {
           action, // Activity Type from https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
           ref,
+          head_commit: {
+            message: headCommitMessage
+          },
           repository: {
             full_name: repoName
           },
           pull_request: {
-            number: pullRequestNumber
+            number: pullRequestNumber,
+            title
           } = {}
         }
       }
@@ -106,7 +110,9 @@ async function run () {
     const runNumber = process.env.GITHUB_RUN_NUMBER
     const runId = process.env.GITHUB_RUN_ID
 
-    const message = 'Change icon_url for Slack notification'
+    const message = (eventName === 'push')
+      ? headCommitMessage.split('\n')[0]
+      : title
 
     const fullName = await getFullName(githubUsername)
 
