@@ -10,7 +10,7 @@ Sends messages that look like:
 ## Setup
 Your Slack workplace will need a <img src="https://github.com/byu-oit/github-action-slack/blob/master/cancel.png" width="16" height="16"> (`:cancel:`) emoji. We've provided one in this repo.
 
-Then, all you'll need is a webhook URL and a channel ID.
+Then, all you'll need is a webhook URL and a channel that you want to post to.
 
 ## Usage
 
