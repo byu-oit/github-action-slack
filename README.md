@@ -1,3 +1,6 @@
+![CI](https://github.com/byu-oit/github-action-slack/workflows/CI/badge.svg)
+![Test](https://github.com/byu-oit/github-action-slack/workflows/Test/badge.svg)
+
 # ![BYU logo](https://www.hscripts.com/freeimages/logos/university-logos/byu/byu-logo-clipart-128.gif) github-action-slack
 A GitHub Action for sending Slack notifications
 
