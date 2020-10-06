@@ -23,13 +23,13 @@
   },
   "homepage": "https://github.com/byu-oit/github-action-slack#readme",
   "dependencies": {
-    "@actions/core": "^1.2.4",
-    "@actions/github": "^3.0.0",
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
     "request": "^2.88.2",
-    "request-promise": "^4.2.5"
+    "request-promise": "^4.2.6"
   },
   "devDependencies": {
-    "@zeit/ncc": "^0.22.1",
+    "@zeit/ncc": "^0.22.3",
     "standard": "^14.3.4"
   }
 }

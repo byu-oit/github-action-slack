@@ -96,6 +96,8 @@ async function run () {
         sha,
         workflow,
         actor: githubUsername,
+        runId,
+        runNumber,
         payload: {
           action, // Activity Type from https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
           ref,
@@ -115,8 +117,6 @@ async function run () {
     const branch = (eventName === 'push')
       ? ref.slice('refs/heads/'.length) // ref = 'refs/heads/master'
       : github.context.payload.pull_request.head.ref // 'master'
-    const runNumber = process.env.GITHUB_RUN_NUMBER
-    const runId = process.env.GITHUB_RUN_ID
 
     const message = (eventName === 'push')
       ? headCommitMessage.split('\n')[0]
