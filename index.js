@@ -1,4 +1,4 @@
-const { getInput, setFailed } = require('@actions/core')
+const { getInput, setFailed, info } = require('@actions/core')
 const github = require('@actions/github')
 const request = require('request-promise')
 
@@ -72,6 +72,14 @@ async function getFullName (githubUsername) {
   }
 }
 
+function getTeamIdFromWebhookUrl (webhookUrl) {
+  // Webhook URLs look something like
+  // https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+  //                   We need this:  ^^^^^^^^^
+  const teamId = webhookUrl.substring(33, 42)
+  return teamId.startsWith('T') ? teamId : '' // Simple sanity check
+}
+
 async function run () {
   try {
     const { context: { eventName } } = github
@@ -88,6 +96,8 @@ async function run () {
         sha,
         workflow,
         actor: githubUsername,
+        runId,
+        runNumber,
         payload: {
           action, // Activity Type from https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
           ref,
@@ -107,8 +117,6 @@ async function run () {
     const branch = (eventName === 'push')
       ? ref.slice('refs/heads/'.length) // ref = 'refs/heads/master'
       : github.context.payload.pull_request.head.ref // 'master'
-    const runNumber = process.env.GITHUB_RUN_NUMBER
-    const runId = process.env.GITHUB_RUN_ID
 
     const message = (eventName === 'push')
       ? headCommitMessage.split('\n')[0]
@@ -177,6 +185,12 @@ async function run () {
       body,
       json: true
     })
+
+    const channelQuery = `?channel=${encodeURIComponent(channel.replace(/^#/, ''))}` // Can be a channel ID or name (without #)
+    const teamId = getTeamIdFromWebhookUrl(webhookUrl)
+    const teamQuery = teamId ? `&team=${encodeURIComponent(teamId)}` : '' // Will try to use default Slack workspace if not provided
+    const linkToChannel = `https://slack.com/app_redirect${channelQuery}${teamQuery}`
+    info(`Slack notification posted to ${channel}! 🎉\n\nLink to channel: ${linkToChannel}`)
   } catch (e) {
     setFailed(e.message || e)
   }
