@@ -1,4 +1,4 @@
-const { getInput, setFailed } = require('@actions/core')
+const { getInput, setFailed, info } = require('@actions/core')
 const github = require('@actions/github')
 const request = require('request-promise')
 
@@ -70,6 +70,14 @@ async function getFullName (githubUsername) {
   } catch (e) {
     return '?'
   }
+}
+
+function getTeamIdFromWebhookUrl (webhookUrl) {
+  // Webhook URLs look something like
+  // https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+  //                   We need this:  ^^^^^^^^^
+  const teamId = webhookUrl.substring(33, 42)
+  return teamId.startsWith('T') ? teamId : '' // Simple sanity check
 }
 
 async function run () {
@@ -177,6 +185,12 @@ async function run () {
       body,
       json: true
     })
+
+    const channelQuery = `?channel=${encodeURIComponent(channel.replace(/^#/, ''))}` // Can be a channel ID or name (without #)
+    const teamId = getTeamIdFromWebhookUrl(webhookUrl)
+    const teamQuery = teamId ? `&team=${encodeURIComponent(teamId)}` : '' // Will try to use default Slack workspace if not provided
+    const linkToChannel = `https://slack.com/app_redirect${channelQuery}${teamQuery}`
+    info(`Slack notification posted to ${channel}! 🎉\n\nLink to channel: ${linkToChannel}`)
   } catch (e) {
     setFailed(e.message || e)
   }
