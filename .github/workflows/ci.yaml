@@ -22,6 +22,8 @@ jobs:
           cache-dependency-path: '**/package-lock.json'
       - run: npm ci --prefer-offline
       - run: npm run package
+      # Complain if contents of /dist directory aren't as expected
+      - run: git diff --exit-code --compact-summary dist || { echo "::error::/dist directory does not match source code - please run 'npm run package'" && exit 1; }
 
   audit:
     name: Audit
