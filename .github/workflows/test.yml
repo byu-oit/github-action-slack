@@ -2,17 +2,17 @@ name: Test
 on:
   push:
     branches:
-      - master
+      - staging
   pull_request:
     branches:
-      - master
+      - staging
 
 jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Slack
         uses: ./
         with:
