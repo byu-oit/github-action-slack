@@ -3,14 +3,14 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - staging
       - 'v*'
 env:
   node_version: "12.x"
 
 jobs:
-  build: # make sure build/ci work properly
-    name: Build
+  package:
+    name: Package
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -18,61 +18,49 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ env.node_version }}
-
-      - name: npm install
-        run: npm install
-
-      - name: npm build
-        run: npm build
-
-      - name: npm run pack
-        run: npm run package
+          cache: npm
+          cache-dependency-path: '**/package-lock.json'
+      - run: npm ci --prefer-offline
+      - run: npm run package
 
   audit:
     name: Audit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
           node-version: ${{ env.node_version }}
-
-      - name: npm audit
-        run: npm audit --audit-level=critical
+          cache: npm
+          cache-dependency-path: '**/package-lock.json'
+      - run: npm audit --audit-level=critical
 
   lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
           node-version: ${{ env.node_version }}
-
-      - name: npm install
-        run: npm install
-
-      - name: npm lint
-        run: npm run lint
+          cache: npm
+          cache-dependency-path: '**/package-lock.json'
+      - run: npm ci --prefer-offline
+      - run: npm run lint
 
 # When tests are added to the code uncomment
-#  test-code:
+#  test:
 #    name: Test
 #    runs-on: ubuntu-latest
 #    steps:
 #      - uses: actions/checkout@v2
-#
 #      - name: Set up Node.js
 #        uses: actions/setup-node@v1
 #        with:
 #          node-version: ${{ env.node_version }}
-#
-#      - name: npm install
-#        run: npm install
-#
-#      - name: npm test
-#        run: npm test
+#          cache: npm
+#          cache-dependency-path: '**/package-lock.json'
+#      - run: npm ci --prefer-offline
+#      - run: npm test
