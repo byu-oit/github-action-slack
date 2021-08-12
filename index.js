@@ -121,6 +121,7 @@ async function run () {
     const message = (eventName === 'push')
       ? headCommitMessage.split('\n')[0]
       : title
+    console.log('Example of code that hasn\'t made it into the /dist directory')
 
     const fullName = await getFullName(githubUsername)
 
