@@ -6,12 +6,12 @@ A GitHub Action for sending Slack notifications
 
 Sends messages that look like:
 
-<img src="https://github.com/byu-oit/github-action-slack/blob/master/push.png" width="500">
+<img src="https://github.com/byu-oit/github-action-slack/blob/staging/push.png" width="500">
 
-<img src="https://github.com/byu-oit/github-action-slack/blob/master/pr.png" width="500">
+<img src="https://github.com/byu-oit/github-action-slack/blob/staging/pr.png" width="500">
 
 ## Setup
-Your Slack workplace will need a <img src="https://github.com/byu-oit/github-action-slack/blob/master/cancel.png" width="16" height="16"> (`:cancel:`) emoji. We've provided one in this repo.
+Your Slack workplace will need a <img src="https://github.com/byu-oit/github-action-slack/blob/staging/cancel.png" width="16" height="16"> (`:cancel:`) emoji. We've provided one in this repo.
 
 Then, all you'll need is a webhook URL and a channel that you want to post to.
 
