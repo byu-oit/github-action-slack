@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/byu-oit/github-action-slack#readme",
   "dependencies": {
-    "@actions/core": "^1.4.0",
+    "@actions/core": "^1.9.1",
     "@actions/github": "^5.0.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6"
